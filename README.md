@@ -1,4 +1,6 @@
-# shmr_finance_tracker
+# shmr_finance
+
+SHMR finance tracker homework
 
 A learn project with finance tracker application 
 

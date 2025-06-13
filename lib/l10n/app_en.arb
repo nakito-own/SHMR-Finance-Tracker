@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "homeTitle": "Home",
+  "settingsTitle": "Settings",
+  "toggleTheme": "Dark Mode",
+  "switchLanguage": "Switch Language",
+  "goToSettings": "Go to Settings",
+  "backToHome": "Back to Home",
+  "currentTheme": "Current theme: {theme}",
+  "income": "Income",
+  "expenses": "Expenses",
+  "account": "Account",
+  "articles": "Articles",
+  "settings": "Settings"
+}
