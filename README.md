@@ -1,6 +1,6 @@
 # shmr_finance_tracker
 
-A new Flutter project.
+A learn project with finance tracker application 
 
 ## Getting Started
 
