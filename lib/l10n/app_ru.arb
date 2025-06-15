@@ -1,0 +1,15 @@
+{
+  "@@locale": "ru",
+  "homeTitle": "Главная",
+  "settingsTitle": "Настройки",
+  "toggleTheme": "Тёмная тема",
+  "switchLanguage": "Сменить язык",
+  "goToSettings": "Перейти к настройкам",
+  "backToHome": "Назад на главную",
+  "currentTheme": "Текущая тема: {theme}",
+  "income": "Доходы",
+  "expenses": "Расходы",
+  "account": "Счет",
+  "articles": "Статьи",
+  "settings": "Настройки"
+}
