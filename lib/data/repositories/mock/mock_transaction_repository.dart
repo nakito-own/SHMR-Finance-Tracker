@@ -1,4 +1,4 @@
-import 'package:shmr_finance/domain/models/transaction.dart';
+import 'package:shmr_finance/domain/models/transaction/transaction.dart';
 import 'package:shmr_finance/domain/repositories/transaction_repository.dart';
 
 class MockTransactionRepository implements TransactionRepository {

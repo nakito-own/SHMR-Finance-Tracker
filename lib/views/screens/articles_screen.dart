@@ -7,14 +7,15 @@ class ArticlesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.account),
+          title: Text(AppLocalizations.of(context)!.articles),
           backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Center(
           child: Text(
-            AppLocalizations.of(context)!.account,
+            AppLocalizations.of(context)!.articles,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),

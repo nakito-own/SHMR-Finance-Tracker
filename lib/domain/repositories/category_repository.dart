@@ -1,4 +1,4 @@
-import '../models/category.dart';
+import 'package:shmr_finance/domain/models/category/category.dart';
 
 abstract class CategoryRepository {
   Future<List<Category>> getAll();
