@@ -15,7 +15,6 @@ class AppNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final items = [
       (AppPages.income, 'assets/icons/uptrend-7.svg', AppLocalizations.of(context)!.income),
       (AppPages.expenses, 'assets/icons/downtrend-7.svg', AppLocalizations.of(context)!.expenses),
@@ -24,9 +23,15 @@ class AppNavigationBar extends StatelessWidget {
       (AppPages.settings, 'assets/icons/Vector.svg', AppLocalizations.of(context)!.settings),
     ];
 
+    final selectedIndex = items.indexWhere((e) => e.$1 == selectedPage);
+
+    if (selectedIndex == -1) {
+      return const SizedBox.shrink(); // скрываем NavigationBar для экранов вне списка
+    }
+
     return NavigationBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      selectedIndex: items.indexWhere((e) => e.$1 == selectedPage),
+      selectedIndex: selectedIndex,
       onDestinationSelected: (index) {
         final page = items[index].$1;
         if (onDestinationSelected != null) {
@@ -35,7 +40,6 @@ class AppNavigationBar extends StatelessWidget {
       },
       indicatorColor: Theme.of(context).colorScheme.primary,
       destinations: items.map((e) {
-
         return NavigationDestination(
           icon: SvgPicture.asset(
             e.$2,

@@ -11,6 +11,7 @@ class ArticlesScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.articles),
+          centerTitle: true,
           backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Center(

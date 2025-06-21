@@ -45,4 +45,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get myHistory => 'My History';
+
+  @override
+  String get myIncomeToday => 'Income Today';
+
+  @override
+  String get myExpensesToday => 'Expenses Today';
 }

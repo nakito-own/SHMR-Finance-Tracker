@@ -166,6 +166,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @myHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'My History'**
+  String get myHistory;
+
+  /// No description provided for @myIncomeToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Income Today'**
+  String get myIncomeToday;
+
+  /// No description provided for @myExpensesToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses Today'**
+  String get myExpensesToday;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

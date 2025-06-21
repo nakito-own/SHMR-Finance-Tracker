@@ -11,5 +11,8 @@
   "expenses": "Expenses",
   "account": "Account",
   "articles": "Articles",
-  "settings": "Settings"
+  "settings": "Settings",
+  "myHistory": "My History",
+  "myIncomeToday": "Income Today",
+  "myExpensesToday": "Expenses Today"
 }

@@ -1,26 +1,27 @@
-import 'package:shmr_finance/domain/models/transaction/transaction.dart';
-
-abstract class TransactionEvent {}
-
-class LoadTransactions extends TransactionEvent {}
-
-class AddTransaction extends TransactionEvent {
-  final Transaction transaction;
-  AddTransaction(this.transaction);
-
-  List<Object?> get props => [transaction];
+abstract class TransactionEvent {
+  const TransactionEvent();
 }
 
-class UpdateTransaction extends TransactionEvent {
-  final Transaction transaction;
-  UpdateTransaction(this.transaction);
+class LoadTransactionsByPeriod extends TransactionEvent {
+  final int accountId;
+  final DateTime start;
+  final DateTime end;
 
-  List<Object?> get props => [transaction];
-}
+  const LoadTransactionsByPeriod({
+    required this.accountId,
+    required this.start,
+    required this.end,
+  });
 
-class DeleteTransaction extends TransactionEvent {
-  final String id;
-  DeleteTransaction(this.id);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is LoadTransactionsByPeriod &&
+              runtimeType == other.runtimeType &&
+              accountId == other.accountId &&
+              start == other.start &&
+              end == other.end;
 
-  List<Object?> get props => [id];
+  @override
+  int get hashCode => Object.hash(accountId, start, end);
 }

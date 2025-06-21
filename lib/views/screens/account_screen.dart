@@ -11,6 +11,7 @@ class AccountScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.account),
+          centerTitle: true,
           backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Center(
