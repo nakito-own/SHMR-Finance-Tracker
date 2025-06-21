@@ -42,6 +42,9 @@ class AppRouterDelegate extends RouterDelegate<AppPages>
       case AppPages.articles:
         body = const ArticlesScreen();
         break;
+      case AppPages.history:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
 
     return Navigator(

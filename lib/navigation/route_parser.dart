@@ -26,6 +26,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppPages> {
   @override
   RouteInformation? restoreRouteInformation(AppPages configuration) {
     switch (configuration) {
+      case AppPages.history:
+        return RouteInformation(uri: Uri.parse('/history'));
       case AppPages.income:
         return RouteInformation(uri: Uri.parse('/income'));
       case AppPages.expenses:

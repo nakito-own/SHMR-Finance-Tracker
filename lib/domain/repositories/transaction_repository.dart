@@ -1,4 +1,4 @@
-import '../models/transaction.dart';
+import 'package:shmr_finance/domain/models/transaction/transaction.dart';
 
 abstract class TransactionRepository {
   Future<List<Transaction>> getAll();

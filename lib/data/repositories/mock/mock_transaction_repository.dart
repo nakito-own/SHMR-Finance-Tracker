@@ -1,4 +1,4 @@
-import 'package:shmr_finance/domain/models/transaction.dart';
+import 'package:shmr_finance/domain/models/transaction/transaction.dart';
 import 'package:shmr_finance/domain/repositories/transaction_repository.dart';
 
 class MockTransactionRepository implements TransactionRepository {
@@ -42,5 +42,13 @@ class MockTransactionRepository implements TransactionRepository {
   @override
   Future<void> delete(String id) async {
     _transactions.removeWhere((t) => t.id.toString() == id);
+  }
+
+  Future<List<Transaction>> getByPeriod({required int accountId, required DateTime start, required DateTime end}) async {
+    return _transactions.where((t) =>
+    t.accountId == accountId &&
+        !t.transactionDate.isBefore(start) &&
+        !t.transactionDate.isAfter(end)
+    ).toList();
   }
 }

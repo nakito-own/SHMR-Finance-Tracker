@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'account_state.dart';
+import 'package:shmr_finance/domain/models/account_state/account_state.dart';
 
 part 'account_history.freezed.dart';
 part 'account_history.g.dart';

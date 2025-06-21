@@ -45,4 +45,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settings => 'Настройки';
+
+  @override
+  String get myHistory => 'Моя история';
+
+  @override
+  String get myIncomeToday => 'Доходы сегодня';
+
+  @override
+  String get myExpensesToday => 'Расходы сегодня';
 }

@@ -4,4 +4,5 @@ enum AppPages {
   expenses,
   account,
   articles,
+  history
 }

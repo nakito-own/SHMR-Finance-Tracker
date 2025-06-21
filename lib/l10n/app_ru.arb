@@ -11,5 +11,8 @@
   "expenses": "Расходы",
   "account": "Счет",
   "articles": "Статьи",
-  "settings": "Настройки"
+  "settings": "Настройки",
+  "myHistory": "Моя история",
+  "myIncomeToday": "Доходы сегодня",
+  "myExpensesToday": "Расходы сегодня"
 }

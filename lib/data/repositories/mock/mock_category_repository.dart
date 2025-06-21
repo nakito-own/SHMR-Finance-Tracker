@@ -1,4 +1,4 @@
-import 'package:shmr_finance/domain/models/category.dart';
+import 'package:shmr_finance/domain/models/category/category.dart';
 import 'package:shmr_finance/domain/repositories/category_repository.dart';
 
 class MockCategoryRepository implements CategoryRepository {

@@ -7,9 +7,11 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.account),
+          centerTitle: true,
           backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Center(

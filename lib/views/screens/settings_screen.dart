@@ -15,9 +15,11 @@ class SettingsScreen extends StatelessWidget {
     final isDarkMode = themeProvider.themeMode == ThemeMode.dark;
 
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.settings),
+          centerTitle: true,
           backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Padding(

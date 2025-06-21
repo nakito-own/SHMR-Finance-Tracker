@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'account_brief.dart';
-import 'category.dart';
+import 'package:shmr_finance/domain/models/account_brief/account_brief.dart';
+import 'package:shmr_finance/domain/models/category/category.dart';
 
 part 'transaction_response.freezed.dart';
 part 'transaction_response.g.dart';
