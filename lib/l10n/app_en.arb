@@ -18,5 +18,15 @@
   "startDate": "Start",
   "endDate": "End",
   "all": "All",
-  "npOperationsForPeriod": "There is no operation for the selected period"
+  "npOperationsForPeriod": "There is no operation for the selected period",
+  "myArticles": "My Articles",
+  "search": "Search...",
+  "editName": "Edit name",
+  "editCurrency": "Change currency",
+  "name": "Name",
+  "currency": "Currency",
+  "noAccount": "Account not found",
+  "balance": "Balance",
+  "deleteAccount": "Delete account",
+  "confirmDeleteAccount": "Are you sure you want to delete this account?"
 }

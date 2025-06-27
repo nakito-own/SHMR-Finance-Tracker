@@ -51,4 +51,10 @@ class LocalBankAccountRepository implements BankAccountRepository {
     final map = await db.query('accounts', where: 'id = ?', whereArgs: [id]);
     return Account.fromJson(map.first);
   }
+
+  @override
+  Future<void> delete(int id) async {
+    final db = await _db;
+    await db.delete('accounts', where: 'id = ?', whereArgs: [id]);
+  }
 }

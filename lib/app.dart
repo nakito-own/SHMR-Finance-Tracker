@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:shmr_finance/core/auth_provider.dart';
+import 'package:shmr_finance/core/bloc/category/category_cubit.dart';
 import 'package:shmr_finance/core/theme/app_theme.dart';
+import 'package:shmr_finance/data/repositories/mock/mock_category_repository.dart';
 
 import 'core/theme_provider.dart';
 import 'core/locale_provider.dart';
@@ -46,10 +48,12 @@ class _MyAppState extends State<MyApp> {
 
     final transactionRepository = ApiTransactionRepository(dio, authProvider);
     final bankAccountRepository = MockBankAccountRepository();
+    final categoryRepository = MockCategoryRepository();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BankAccountCubit(bankAccountRepository)..load()),
+        BlocProvider(create: (_) => CategoryCubit(categoryRepository)..loadAll()),
         BlocProvider(
           create: (_) => TransactionBloc(repository: transactionRepository),
         ),

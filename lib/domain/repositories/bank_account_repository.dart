@@ -6,4 +6,5 @@ abstract class BankAccountRepository {
   Future<List<Account>> getAll();
   Future<Account> create(AccountCreateRequest request);
   Future<Account> update(int id, AccountUpdateRequest request);
+  Future<void> delete(int id);
 }

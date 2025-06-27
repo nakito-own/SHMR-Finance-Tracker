@@ -66,4 +66,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get npOperationsForPeriod => 'There is no operation for the selected period';
+
+  @override
+  String get myArticles => 'My Articles';
+
+  @override
+  String get search => 'Search...';
+
+  @override
+  String get editName => 'Edit name';
+
+  @override
+  String get editCurrency => 'Change currency';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get currency => 'Currency';
+
+  @override
+  String get noAccount => 'Account not found';
+
+  @override
+  String get balance => 'Balance';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get confirmDeleteAccount => 'Are you sure you want to delete this account?';
 }

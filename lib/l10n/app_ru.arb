@@ -18,5 +18,15 @@
   "startDate": "Начало",
   "endDate": "Конец",
   "all": "Всего",
-  "npOperationsForPeriod": "Операций за выбранный период нет"
+  "npOperationsForPeriod": "Операций за выбранный период нет",
+  "myArticles": "Мои статьи",
+  "search": "Поиск...",
+  "editName": "Изменить имя",
+  "editCurrency": "Изменить валюту",
+  "name": "Название",
+  "currency": "Валюта",
+  "noAccount": "Счет не найден",
+  "balance": "Баланс",
+  "deleteAccount": "Удалить счет",
+  "confirmDeleteAccount": "Удалить этот счет?"
 }
