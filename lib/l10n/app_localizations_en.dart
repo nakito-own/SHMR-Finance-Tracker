@@ -71,7 +71,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myArticles => 'My Articles';
 
   @override
-  String get search => 'Search...';
+  String get searchArticles => 'Find an article';
 
   @override
   String get editName => 'Edit name';

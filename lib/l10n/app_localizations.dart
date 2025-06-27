@@ -215,11 +215,11 @@ abstract class AppLocalizations {
   /// **'My Articles'**
   String get myArticles;
 
-  /// No description provided for @search.
+  /// No description provided for @searchArticles.
   ///
   /// In en, this message translates to:
-  /// **'Search...'**
-  String get search;
+  /// **'Find an article'**
+  String get searchArticles;
 
   /// No description provided for @editName.
   ///

@@ -71,7 +71,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get myArticles => 'Мои статьи';
 
   @override
-  String get search => 'Поиск...';
+  String get searchArticles => 'Найти статью';
 
   @override
   String get editName => 'Изменить имя';

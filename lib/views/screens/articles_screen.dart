@@ -41,37 +41,65 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(0.0),
           child: Column(
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.search,
-                  prefixIcon: const Icon(Icons.search),
+              Container(
+                color: ColorScheme.of(context).secondary,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.searchArticles,
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                    textAlignVertical: TextAlignVertical.center,
+                    onChanged: (value) => setState(() => _query = value),
+                  ),
                 ),
-                onChanged: (value) => setState(() => _query = value),
               ),
-              const SizedBox(height: 8),
+              const Divider(height: 0, color: Colors.grey),
               Expanded(
-                child: BlocBuilder<CategoryCubit, List<Category>>(builder: (context, categories) {
-                  final filtered = _query.isEmpty
-                      ? categories
-                      : categories.where((c) => _fuzzyMatch(c.name, _query)).toList();
-                  if (filtered.isEmpty) {
-                    return Center(child: Text(AppLocalizations.of(context)!.npOperationsForPeriod));
-                  }
-                  return ListView.separated(
-                    itemCount: filtered.length,
-                    separatorBuilder: (_, __) => const Divider(height: 0),
-                    itemBuilder: (context, index) {
-                      final c = filtered[index];
-                      return ListTile(
-                        leading: Text(c.emoji, style: const TextStyle(fontSize: 20)),
-                        title: Text(c.name),
+                child: BlocBuilder<CategoryCubit, List<Category>>(
+                  builder: (context, categories) {
+                    final filtered =
+                        _query.isEmpty
+                            ? categories
+                            : categories
+                                .where((c) => _fuzzyMatch(c.name, _query))
+                                .toList();
+                    if (filtered.isEmpty) {
+                      return Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.npOperationsForPeriod,
+                        ),
                       );
-                    },
-                  );
-                }),
+                    }
+                    return ListView.separated(
+                      itemCount: filtered.length,
+                      separatorBuilder:
+                          (_, __) =>
+                              const Divider(height: 0, color: Colors.grey),
+                      itemBuilder: (context, index) {
+                        final c = filtered[index];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: ColorScheme.of(context).secondary,
+                            child: Text(
+                              c.emoji,
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          title: Text(c.name),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),
