@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shmr_finance/views/app/daily_transactions_view.dart';
 import 'package:shmr_finance/views/screens/history_screen.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shmr_finance/core/bloc/transaction/transaction_bloc.dart';
+import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 
 class IncomeScreen extends StatelessWidget {
   const IncomeScreen({super.key});
@@ -22,9 +25,17 @@ class IncomeScreen extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.history),
-              onPressed: () {
-                Navigator.of(context).push(
+              onPressed: () async {
+                await Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const HistoryScreen(isIncome: true)),
+                );
+                final now = DateTime.now();
+                context.read<TransactionBloc>().add(
+                  LoadTransactionsByPeriod(
+                    accountId: 1,
+                    start: DateTime(now.year, now.month, now.day),
+                    end: DateTime(now.year, now.month, now.day, 23, 59, 59),
+                  ),
                 );
               },
             ),

@@ -21,20 +21,31 @@ class ApiTransactionRepository implements TransactionResponseRepository {
     final startStr = formatter.format(start);
     final endStr = formatter.format(end);
 
-    final response = await dio.get(
-      '/api/v1/transactions/account/$accountId/period',
-      queryParameters: {
-        'startDate': startStr,
-        'endDate': endStr,
-      },
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
+    try {
+      final response = await dio.get(
+        '/api/v1/transactions/account/$accountId/period',
+        queryParameters: {
+          'startDate': startStr,
+          'endDate': endStr,
         },
-      ),
-    );
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
 
-    final rawData = response.data as List;
-    return rawData.map((json) => TransactionResponse.fromJson(json)).toList();
+      final rawData = response.data;
+
+      if (rawData is! List) {
+        throw Exception('Неверный формат данных: ожидался List, получен ${rawData.runtimeType}');
+      }
+
+      return rawData.map((json) => TransactionResponse.fromJson(json)).toList();
+    } catch (e, stack) {
+      print('Ошибка в getByPeriod: $e');
+      print(stack);
+      rethrow;
+    }
   }
 }

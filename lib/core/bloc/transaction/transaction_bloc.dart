@@ -25,7 +25,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       emit(TransactionLoaded(txs));
     } catch (_) {
-      emit(TransactionError("Не удалось загрузить транзакции"));
+      emit(TransactionError("Не удалось загрузить транзакции в BLoC вот конкретно тут"));
     }
   }
 }
