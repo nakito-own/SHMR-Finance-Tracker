@@ -14,5 +14,9 @@
   "settings": "Настройки",
   "myHistory": "Моя история",
   "myIncomeToday": "Доходы сегодня",
-  "myExpensesToday": "Расходы сегодня"
+  "myExpensesToday": "Расходы сегодня",
+  "startDate": "Начало",
+  "endDate": "Конец",
+  "all": "Всего",
+  "npOperationsForPeriod": "Операций за выбранный период нет"
 }

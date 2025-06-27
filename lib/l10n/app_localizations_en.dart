@@ -54,4 +54,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myExpensesToday => 'Expenses Today';
+
+  @override
+  String get startDate => 'Start';
+
+  @override
+  String get endDate => 'End';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get npOperationsForPeriod => 'There is no operation for the selected period';
 }

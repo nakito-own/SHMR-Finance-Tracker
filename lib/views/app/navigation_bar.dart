@@ -26,7 +26,7 @@ class AppNavigationBar extends StatelessWidget {
     final selectedIndex = items.indexWhere((e) => e.$1 == selectedPage);
 
     if (selectedIndex == -1) {
-      return const SizedBox.shrink(); // скрываем NavigationBar для экранов вне списка
+      return const SizedBox.shrink();
     }
 
     return NavigationBar(

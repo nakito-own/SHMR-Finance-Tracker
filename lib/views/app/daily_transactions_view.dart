@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
+import 'package:shmr_finance/l10n/app_localizations.dart';
 
 class DailyTransactionsView extends StatefulWidget {
   final bool isIncome;
@@ -71,16 +72,16 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Text('Всего', style: Theme.of(context).textTheme.titleMedium),
+                    Text(AppLocalizations.of(context)!.all, style: Theme.of(context).textTheme.titleMedium),
                     const Spacer(),
                     Text('${total.toStringAsFixed(2)} ₽', style: Theme.of(context).textTheme.titleMedium),
                   ],
                 ),
               ),
               if (filtered.isEmpty)
-                const Expanded(
+                Expanded(
                   child: Center(
-                    child: Text('Операций за выбранный период нет'),
+                    child: Text(AppLocalizations.of(context)!.npOperationsForPeriod),
                   ),
                 )
               else

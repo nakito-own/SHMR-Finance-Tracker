@@ -54,4 +54,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get myExpensesToday => 'Расходы сегодня';
+
+  @override
+  String get startDate => 'Начало';
+
+  @override
+  String get endDate => 'Конец';
+
+  @override
+  String get all => 'Всего';
+
+  @override
+  String get npOperationsForPeriod => 'Операций за выбранный период нет';
 }

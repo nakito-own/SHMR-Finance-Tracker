@@ -184,6 +184,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expenses Today'**
   String get myExpensesToday;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get endDate;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @npOperationsForPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no operation for the selected period'**
+  String get npOperationsForPeriod;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

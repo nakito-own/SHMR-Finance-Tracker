@@ -88,7 +88,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       child: Row(
                         children: [
                           Text(
-                            'Начало',
+                            AppLocalizations.of(context)!.startDate,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           const Spacer(),
@@ -110,7 +110,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       child: Row(
                         children: [
                           Text(
-                            'Конец',
+                            AppLocalizations.of(context)!.endDate,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           const Spacer(),
