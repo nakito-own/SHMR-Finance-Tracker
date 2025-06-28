@@ -36,4 +36,14 @@ class BankAccountCubit extends Cubit<Account?> {
       emit(null);
     }
   }
+
+  Future<void> delete() async {
+    if (state == null) return;
+    try {
+      await repository.delete(state!.id);
+      emit(null);
+    } catch (_) {
+      emit(null);
+    }
+  }
 }

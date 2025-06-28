@@ -74,7 +74,7 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                   children: [
                     Text(AppLocalizations.of(context)!.all, style: Theme.of(context).textTheme.titleMedium),
                     const Spacer(),
-                    Text('${total.toStringAsFixed(2)} ₽', style: Theme.of(context).textTheme.titleMedium),
+                    Text('${total.toStringAsFixed(0)} ₽', style: Theme.of(context).textTheme.titleMedium),
                   ],
                 ),
               ),
@@ -103,7 +103,7 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('${tx.amount} ₽', style: TextTheme.of(context).titleMedium),
+                                Text('${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽', style: TextTheme.of(context).titleMedium),
                                 IconButton(
                                   icon: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
                                   onPressed: () {

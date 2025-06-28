@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shmr_finance/views/app/daily_transactions_view.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
+import 'package:shmr_finance/views/screens/analysis_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   final bool isIncome;
@@ -72,6 +74,22 @@ class _HistoryScreenState extends State<HistoryScreen> {
           title: Text(AppLocalizations.of(context)!.myHistory),
           centerTitle: true,
           backgroundColor: ColorScheme.of(context).primary,
+          actions: [
+            IconButton(
+              icon: SvgPicture.asset(
+                'assets/icons/Analysis.svg',
+                width: 24,
+                height: 24,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AnalysisScreen(isIncome: widget.isIncome),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         body: Column(
           children: [

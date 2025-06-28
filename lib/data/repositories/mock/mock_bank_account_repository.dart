@@ -48,4 +48,9 @@ class MockBankAccountRepository implements BankAccountRepository {
     _accounts[index] = updated;
     return updated;
   }
+
+  @override
+  Future<void> delete(int id) async {
+    _accounts.removeWhere((a) => a.id == id);
+  }
 }

@@ -203,11 +203,83 @@ abstract class AppLocalizations {
   /// **'All'**
   String get all;
 
+  /// No description provided for @analysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis'**
+  String get analysis;
+
+  /// No description provided for @sum.
+  ///
+  /// In en, this message translates to:
+  /// **'Sum'**
+  String get sum;
+
   /// No description provided for @npOperationsForPeriod.
   ///
   /// In en, this message translates to:
   /// **'There is no operation for the selected period'**
   String get npOperationsForPeriod;
+
+  /// No description provided for @myArticles.
+  ///
+  /// In en, this message translates to:
+  /// **'My Articles'**
+  String get myArticles;
+
+  /// No description provided for @searchArticles.
+  ///
+  /// In en, this message translates to:
+  /// **'Find an article'**
+  String get searchArticles;
+
+  /// No description provided for @editName.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit name'**
+  String get editName;
+
+  /// No description provided for @editCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Change currency'**
+  String get editCurrency;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @currency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get currency;
+
+  /// No description provided for @noAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account not found'**
+  String get noAccount;
+
+  /// No description provided for @balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get balance;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @confirmDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this account?'**
+  String get confirmDeleteAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

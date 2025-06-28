@@ -65,5 +65,41 @@ class AppLocalizationsRu extends AppLocalizations {
   String get all => 'Всего';
 
   @override
+  String get analysis => 'Анализ';
+
+  @override
+  String get sum => 'Сумма';
+
+  @override
   String get npOperationsForPeriod => 'Операций за выбранный период нет';
+
+  @override
+  String get myArticles => 'Мои статьи';
+
+  @override
+  String get searchArticles => 'Найти статью';
+
+  @override
+  String get editName => 'Изменить имя';
+
+  @override
+  String get editCurrency => 'Изменить валюту';
+
+  @override
+  String get name => 'Название';
+
+  @override
+  String get currency => 'Валюта';
+
+  @override
+  String get noAccount => 'Счет не найден';
+
+  @override
+  String get balance => 'Баланс';
+
+  @override
+  String get deleteAccount => 'Удалить счет';
+
+  @override
+  String get confirmDeleteAccount => 'Удалить этот счет?';
 }
