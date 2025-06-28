@@ -65,6 +65,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get all => 'Всего';
 
   @override
+  String get analysis => 'Анализ';
+
+  @override
+  String get sum => 'Сумма';
+
+  @override
   String get npOperationsForPeriod => 'Операций за выбранный период нет';
 
   @override

@@ -203,6 +203,18 @@ abstract class AppLocalizations {
   /// **'All'**
   String get all;
 
+  /// No description provided for @analysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis'**
+  String get analysis;
+
+  /// No description provided for @sum.
+  ///
+  /// In en, this message translates to:
+  /// **'Sum'**
+  String get sum;
+
   /// No description provided for @npOperationsForPeriod.
   ///
   /// In en, this message translates to:

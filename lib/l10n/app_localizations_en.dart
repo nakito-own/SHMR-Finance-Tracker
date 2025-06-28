@@ -65,6 +65,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get all => 'All';
 
   @override
+  String get analysis => 'Analysis';
+
+  @override
+  String get sum => 'Sum';
+
+  @override
   String get npOperationsForPeriod => 'There is no operation for the selected period';
 
   @override
