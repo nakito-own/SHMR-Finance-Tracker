@@ -108,4 +108,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get onlineMode => 'Соединение установлено. Показаны данные из сервера';
+
+  @override
+  String get editOperation => 'Редактировать операцию';
+
+  @override
+  String get createOperation => 'Создать операцию';
+
+  @override
+  String get category => 'Статья';
+
+  @override
+  String get date => 'Дата';
+
+  @override
+  String get comment => 'Комментарий';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get fillAllFields => 'Пожалуйста, заполните все поля';
 }

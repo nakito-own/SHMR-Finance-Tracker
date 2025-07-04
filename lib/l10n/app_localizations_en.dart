@@ -108,4 +108,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onlineMode => 'Connected. Showing data from server';
+
+  @override
+  String get editOperation => 'Edit operation';
+
+  @override
+  String get createOperation => 'Create operation';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get comment => 'Comment';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get fillAllFields => 'Please fill all fields';
 }

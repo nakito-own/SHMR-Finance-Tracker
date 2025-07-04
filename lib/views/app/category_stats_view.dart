@@ -7,6 +7,7 @@ import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
 import 'package:shmr_finance/domain/models/category/category.dart';
 import 'package:shmr_finance/domain/models/transaction_response/transaction_response.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
+import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
 
 class CategoryStatsView extends StatefulWidget {
   final bool isIncome;
@@ -217,6 +218,16 @@ class _CategoryTransactionsScreen extends StatelessWidget {
             return Column(
               children: [
                 ListTile(
+                  onTap: () async {
+                    await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (_) => TransactionFormScreen(
+                        transaction: tx,
+                        isIncome: tx.category.isIncome,
+                      ),
+                    );
+                  },
                   title: Text(tx.comment ?? ''),
                   subtitle: Text(DateFormat.yMd().add_Hm().format(tx.transactionDate)),
                   trailing: Text('${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽'),

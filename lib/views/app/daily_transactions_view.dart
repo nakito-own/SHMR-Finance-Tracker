@@ -4,6 +4,7 @@ import 'package:shmr_finance/core/bloc/transaction/transaction_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
+import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
 
 class DailyTransactionsView extends StatefulWidget {
   final bool isIncome;
@@ -102,6 +103,16 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                       return Column(
                         children: [
                           ListTile(
+                            onTap: () async {
+                              await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (_) => TransactionFormScreen(
+                                  transaction: tx,
+                                  isIncome: widget.isIncome,
+                                ),
+                              );
+                            },
                             leading: CircleAvatar(
                               backgroundColor: ColorScheme.of(context).secondary,
                               child: Text(category.emoji),
@@ -114,7 +125,15 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                                 Text('${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽', style: TextTheme.of(context).titleMedium),
                                 IconButton(
                                   icon: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    await showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      builder: (_) => TransactionFormScreen(
+                                        transaction: tx,
+                                        isIncome: widget.isIncome,
+                                      ),
+                                    );
                                   },
                                 ),
                               ],

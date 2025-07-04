@@ -32,5 +32,12 @@
   "deleteAccount": "Delete account",
   "confirmDeleteAccount": "Are you sure you want to delete this account?",
   "offlineMode": "No internet connection. Showing cached data",
-  "onlineMode": "Connected. Showing data from server"
+  "onlineMode": "Connected. Showing data from server",
+  "editOperation": "Edit operation",
+  "createOperation": "Create operation",
+  "category": "Category",
+  "date": "Date",
+  "comment": "Comment",
+  "save": "Save",
+  "fillAllFields": "Please fill all fields"
 }
