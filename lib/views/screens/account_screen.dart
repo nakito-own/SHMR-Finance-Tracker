@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:balance_chart/balance_chart.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -235,6 +236,16 @@ class _AccountScreenState extends State<AccountScreen> {
                       key: const ValueKey('blurred'),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 1.0),
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 80,
+                          height: 24,
+                          color: Colors.transparent,
+                          child: Text(
+                            acc.balance,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.transparent),
+                          ),
+                        ),
                       ),
                     )
                         : Text(
@@ -271,6 +282,19 @@ class _AccountScreenState extends State<AccountScreen> {
                   onTap: () => _editCurrency(acc),
                 ),
               if (!_editMode) const Divider(height: 0, color: Colors.grey),
+              if (!_editMode)
+                SizedBox(
+                  height: 300,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: BalanceChartView(
+                        daysLabel: AppLocalizations.of(context)!.days,
+                        monthsLabel: AppLocalizations.of(context)!.months,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           );
         }),

@@ -7,6 +7,8 @@ import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
 import 'package:shmr_finance/domain/models/category/category.dart';
 import 'package:shmr_finance/domain/models/transaction_response/transaction_response.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
+import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
+import 'package:category_chart/category_chart.dart';
 
 class CategoryStatsView extends StatefulWidget {
   final bool isIncome;
@@ -103,6 +105,17 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
             );
           }
 
+          final chartData = <PieData>[];
+          for (var i = 0; i < groups.length; i++) {
+            chartData.add(
+              PieData(
+                label: groups[i].category.name,
+                value: groups[i].total,
+                color: Colors.primaries[i % Colors.primaries.length],
+              ),
+            );
+          }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -116,6 +129,13 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
                     Text('${totalSum.toStringAsFixed(0)} ₽',
                         style: Theme.of(context).textTheme.titleMedium),
                   ],
+                ),
+              ),
+              const Divider(height: 0, color: Colors.grey),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(28),
+                  child: CategoryPieChart(data: chartData),
                 ),
               ),
               const Divider(height: 0, color: Colors.grey),
@@ -217,6 +237,16 @@ class _CategoryTransactionsScreen extends StatelessWidget {
             return Column(
               children: [
                 ListTile(
+                  onTap: () async {
+                    await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (_) => TransactionFormScreen(
+                        transaction: tx,
+                        isIncome: tx.category.isIncome,
+                      ),
+                    );
+                  },
                   title: Text(tx.comment ?? ''),
                   subtitle: Text(DateFormat.yMd().add_Hm().format(tx.transactionDate)),
                   trailing: Text('${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽'),

@@ -107,5 +107,35 @@ class AppLocalizationsRu extends AppLocalizations {
   String get offlineMode => 'Нет соединения с интернетом. Показаны сохраненные данные';
 
   @override
-  String get onlineMode => 'Соединение установлено. Показаны данные из сервера';
+  String get onlineMode => 'Соединение установлено';
+
+  @override
+  String get editOperation => 'Редактировать операцию';
+
+  @override
+  String get createOperation => 'Создать операцию';
+
+  @override
+  String get category => 'Статья';
+
+  @override
+  String get date => 'Дата';
+
+  @override
+  String get comment => 'Комментарий';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get fillAllFields => 'Не все поля заполнены';
+
+  @override
+  String get myAccount => 'Мой счет';
+
+  @override
+  String get days => 'По дням';
+
+  @override
+  String get months => 'По месяцам';
 }

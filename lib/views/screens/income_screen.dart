@@ -5,6 +5,7 @@ import 'package:shmr_finance/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
+import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
 
 class IncomeScreen extends StatelessWidget {
   const IncomeScreen({super.key});
@@ -47,7 +48,15 @@ class IncomeScreen extends StatelessWidget {
           endDate: todayEnd,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            await showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => const TransactionFormScreen(
+                isIncome: true,
+              ),
+            );
+          },
           child: Icon(Icons.add, color: ColorScheme.of(context).surface),
         ),
       ),

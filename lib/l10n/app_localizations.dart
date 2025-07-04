@@ -290,8 +290,68 @@ abstract class AppLocalizations {
   /// No description provided for @onlineMode.
   ///
   /// In en, this message translates to:
-  /// **'Connected. Showing data from server'**
+  /// **'Connected. Showing server data'**
   String get onlineMode;
+
+  /// No description provided for @editOperation.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit operation'**
+  String get editOperation;
+
+  /// No description provided for @createOperation.
+  ///
+  /// In en, this message translates to:
+  /// **'Create operation'**
+  String get createOperation;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get comment;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @fillAllFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill all fields'**
+  String get fillAllFields;
+
+  /// No description provided for @myAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'My Account'**
+  String get myAccount;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get days;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get months;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
