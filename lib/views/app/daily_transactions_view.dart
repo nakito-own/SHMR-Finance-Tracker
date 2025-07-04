@@ -55,6 +55,14 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
         } else if (state is TransactionError) {
           return Center(child: Text(state.message));
         } else if (state is TransactionLoaded) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final text = state.fromCache
+                ? AppLocalizations.of(context)!.offlineMode
+                : AppLocalizations.of(context)!.onlineMode;
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(content: Text(text)));
+          });
           final filtered = state.transactions
               .where((tx) => tx.category.isIncome == widget.isIncome)
               .toList();

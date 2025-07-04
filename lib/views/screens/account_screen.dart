@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'dart:math';
+import 'dart:ui';
+import 'package:sensors_plus/sensors_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shmr_finance/core/bloc/bank_account/bank_account_cubit.dart';
@@ -17,17 +21,39 @@ class _AccountScreenState extends State<AccountScreen> {
   bool _hidden = true;
   bool _editMode = false;
   late TextEditingController _nameController;
+  StreamSubscription<UserAccelerometerEvent>? _shakeSub;
+  DateTime? _lastShake;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
+    _initSensors();
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     super.dispose();
+    _shakeSub?.cancel();
+  }
+
+  void _initSensors() async {
+    final info = DeviceInfoPlugin();
+    await info.deviceInfo; // ensure plugin initialized
+    _shakeSub = userAccelerometerEvents.listen((event) {
+      final gX = event.x / 9.80665;
+      final gY = event.y / 9.80665;
+      final gZ = event.z / 9.80665;
+      final gForce = sqrt(gX * gX + gY * gY + gZ * gZ);
+      if (gForce > 2.7) {
+        final now = DateTime.now();
+        if (_lastShake == null || now.difference(_lastShake!) > const Duration(milliseconds: 800)) {
+          _lastShake = now;
+          setState(() => _hidden = !_hidden);
+        }
+      }
+    });
   }
 
   String _symbol(String code) {
@@ -197,17 +223,23 @@ class _AccountScreenState extends State<AccountScreen> {
                 trailing: GestureDetector(
                   onTap: () => setState(() => _hidden = !_hidden),
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 200),
+                    switchInCurve: Curves.easeIn,
+                    switchOutCurve: Curves.easeOut,
+                    transitionBuilder: (child, animation) => FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    ),
                     child: _hidden
-                        ? Container(
-                      key: const ValueKey('hidden'),
-                      width: 80,
-                      height: 20,
-                      color: Theme.of(context).colorScheme.secondaryContainer,
+                        ? ClipRect(
+                      key: const ValueKey('blurred'),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 1.0),
+                      ),
                     )
                         : Text(
                       acc.balance,
-                      key: const ValueKey('value'),
+                      key: const ValueKey('visible'),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),

@@ -102,4 +102,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get confirmDeleteAccount => 'Удалить этот счет?';
+
+  @override
+  String get offlineMode => 'Нет соединения с интернетом. Показаны сохраненные данные';
+
+  @override
+  String get onlineMode => 'Соединение установлено. Показаны данные из сервера';
 }

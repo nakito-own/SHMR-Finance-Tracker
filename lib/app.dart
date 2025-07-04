@@ -4,6 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:shmr_finance/core/auth_provider.dart';
 import 'package:shmr_finance/core/bloc/category/category_cubit.dart';
 import 'package:shmr_finance/core/theme/app_theme.dart';
+import 'package:shmr_finance/data/local/app_database.dart';
+import 'package:shmr_finance/data/local/local_transaction_response_repository.dart';
+import 'package:shmr_finance/data/repositories/api/cached_transaction_repository.dart';
 import 'package:shmr_finance/data/repositories/mock/mock_category_repository.dart';
 
 import 'core/theme_provider.dart';
@@ -46,7 +49,10 @@ class _MyAppState extends State<MyApp> {
     final authProvider = AuthProvider();
     final dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl));
 
-    final transactionRepository = ApiTransactionRepository(dio, authProvider);
+    final remoteRepo = ApiTransactionRepository(dio, authProvider);
+    final db = AppDatabase();
+    final localRepo = LocalTransactionResponseRepository(db);
+    final transactionRepository = CachedTransactionRepository(remote: remoteRepo, local: localRepo);
     final bankAccountRepository = MockBankAccountRepository();
     final categoryRepository = MockCategoryRepository();
 

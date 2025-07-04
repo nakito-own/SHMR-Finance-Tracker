@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
+import 'package:shmr_finance/core/network_utils.dart';
 import 'package:shmr_finance/domain/repositories/transaction_response_repository.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
@@ -17,13 +18,14 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     emit(TransactionLoading());
 
     try {
+      final online = await hasNetwork();
       final txs = await repository.getByPeriod(
         accountId: event.accountId,
         start: event.start,
         end: event.end,
       );
 
-      emit(TransactionLoaded(txs));
+      emit(TransactionLoaded(txs, fromCache: !online));
     } catch (_) {
       emit(TransactionError("Не удалось загрузить транзакции в BLoC вот конкретно тут"));
     }

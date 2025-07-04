@@ -10,8 +10,9 @@ class TransactionLoading extends TransactionState {}
 
 class TransactionLoaded extends TransactionState {
   final List<TransactionResponse> transactions;
+  final bool fromCache;
 
-  const TransactionLoaded(this.transactions);
+  const TransactionLoaded(this.transactions, {this.fromCache = false});
 }
 
 class TransactionError extends TransactionState {

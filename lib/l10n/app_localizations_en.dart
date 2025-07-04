@@ -102,4 +102,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmDeleteAccount => 'Are you sure you want to delete this account?';
+
+  @override
+  String get offlineMode => 'No internet connection. Showing cached data';
+
+  @override
+  String get onlineMode => 'Connected. Showing data from server';
 }

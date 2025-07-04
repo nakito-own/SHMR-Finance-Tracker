@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fuzzy/fuzzy.dart';
 import 'package:shmr_finance/core/bloc/category/category_cubit.dart';
 import 'package:shmr_finance/domain/models/category/category.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
-
-bool _fuzzyMatch(String text, String pattern) {
-  text = text.toLowerCase();
-  pattern = pattern.toLowerCase();
-  int j = 0;
-  for (int i = 0; i < text.length && j < pattern.length; i++) {
-    if (text[i] == pattern[j]) j++;
-  }
-  return j == pattern.length;
-}
 
 class ArticlesScreen extends StatefulWidget {
   const ArticlesScreen({super.key});
@@ -38,7 +29,6 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.articles),
           centerTitle: true,
-          backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Padding(
           padding: const EdgeInsets.all(0.0),
@@ -66,24 +56,30 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
               Expanded(
                 child: BlocBuilder<CategoryCubit, List<Category>>(
                   builder: (context, categories) {
-                    final filtered =
-                        _query.isEmpty
-                            ? categories
-                            : categories
-                                .where((c) => _fuzzyMatch(c.name, _query))
-                                .toList();
+                    final filtered = _query.isEmpty
+                        ? categories
+                        : Fuzzy<Category>(
+                      categories,
+                      options: FuzzyOptions(
+                        keys: [
+                          WeightedKey<Category>(
+                            name: 'name',
+                            getter: (c) => c.name,
+                            weight: 1,
+                          ),
+                        ],
+                      ),
+                    ).search(_query).map((r) => r.item).toList();
+
                     if (filtered.isEmpty) {
                       return Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.npOperationsForPeriod,
-                        ),
+                        child: Text(AppLocalizations.of(context)!.npOperationsForPeriod),
                       );
                     }
+
                     return ListView.separated(
                       itemCount: filtered.length,
-                      separatorBuilder:
-                          (_, __) =>
-                              const Divider(height: 0, color: Colors.grey),
+                      separatorBuilder: (_, __) => const Divider(height: 0, color: Colors.grey),
                       itemBuilder: (context, index) {
                         final c = filtered[index];
                         return ListTile(

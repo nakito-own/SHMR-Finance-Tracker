@@ -280,6 +280,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this account?'**
   String get confirmDeleteAccount;
+
+  /// No description provided for @offlineMode.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection. Showing cached data'**
+  String get offlineMode;
+
+  /// No description provided for @onlineMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected. Showing data from server'**
+  String get onlineMode;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

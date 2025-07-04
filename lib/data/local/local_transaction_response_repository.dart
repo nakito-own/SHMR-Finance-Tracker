@@ -49,4 +49,48 @@ class LocalTransactionResponseRepository implements TransactionResponseRepositor
       );
     }).toList();
   }
+
+  Future<void> saveAll(List<TransactionResponse> list) async {
+    final db = await _db;
+    final batch = db.batch();
+    for (final tx in list) {
+      batch.insert(
+        'accounts',
+        {
+          'id': tx.account.id,
+          'name': tx.account.name,
+          'balance': tx.account.balance,
+          'currency': tx.account.currency,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      batch.insert(
+        'categories',
+        {
+          'id': tx.category.id,
+          'name': tx.category.name,
+          'emoji': tx.category.emoji,
+          'isIncome': tx.category.isIncome ? 1 : 0,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      batch.insert(
+        'transactions',
+        {
+          'id': tx.id,
+          'accountId': tx.account.id,
+          'categoryId': tx.category.id,
+          'amount': tx.amount,
+          'transactionDate': tx.transactionDate.toIso8601String(),
+          'comment': tx.comment,
+          'createdAt': tx.createdAt.toIso8601String(),
+          'updatedAt': tx.updatedAt.toIso8601String(),
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+    await batch.commit(noResult: true);
+  }
 }
