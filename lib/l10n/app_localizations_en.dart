@@ -107,7 +107,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get offlineMode => 'No internet connection. Showing cached data';
 
   @override
-  String get onlineMode => 'Connected. Showing data from server';
+  String get onlineMode => 'Connected. Showing server data';
 
   @override
   String get editOperation => 'Edit operation';
@@ -129,4 +129,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fillAllFields => 'Please fill all fields';
+
+  @override
+  String get myAccount => 'My Account';
+
+  @override
+  String get days => 'Days';
+
+  @override
+  String get months => 'Months';
 }

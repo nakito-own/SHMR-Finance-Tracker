@@ -107,7 +107,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get offlineMode => 'Нет соединения с интернетом. Показаны сохраненные данные';
 
   @override
-  String get onlineMode => 'Соединение установлено. Показаны данные из сервера';
+  String get onlineMode => 'Соединение установлено';
 
   @override
   String get editOperation => 'Редактировать операцию';
@@ -128,5 +128,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get save => 'Сохранить';
 
   @override
-  String get fillAllFields => 'Пожалуйста, заполните все поля';
+  String get fillAllFields => 'Не все поля заполнены';
+
+  @override
+  String get myAccount => 'Мой счет';
+
+  @override
+  String get days => 'По дням';
+
+  @override
+  String get months => 'По месяцам';
 }

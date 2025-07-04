@@ -30,6 +30,9 @@ dependencies:
   category_chart:
     path: category_chart
 
+  balance_chart:
+    path: balance_chart
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

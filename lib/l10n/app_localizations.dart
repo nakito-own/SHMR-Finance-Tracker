@@ -290,7 +290,7 @@ abstract class AppLocalizations {
   /// No description provided for @onlineMode.
   ///
   /// In en, this message translates to:
-  /// **'Connected. Showing data from server'**
+  /// **'Connected. Showing server data'**
   String get onlineMode;
 
   /// No description provided for @editOperation.
@@ -334,6 +334,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please fill all fields'**
   String get fillAllFields;
+
+  /// No description provided for @myAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'My Account'**
+  String get myAccount;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get days;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get months;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
