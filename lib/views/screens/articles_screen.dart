@@ -29,6 +29,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.articles),
           centerTitle: true,
+          backgroundColor: ColorScheme.of(context).primary,
         ),
         body: Padding(
           padding: const EdgeInsets.all(0.0),
