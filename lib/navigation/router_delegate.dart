@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shmr_finance/views/app/offline_banner.dart';
 import '../views/app/navigation_bar.dart';
 import '../views/screens/settings_screen.dart';
 import '../views/screens/income_screen.dart';
@@ -54,10 +55,17 @@ class AppRouterDelegate extends RouterDelegate<AppPages>
           key: ValueKey(_currentPage),
           child: Scaffold(
             body: body,
-            bottomNavigationBar: AppNavigationBar(
-              selectedPage: _currentPage,
-              onDestinationSelected: _handlePageChange,
-            ),
+            bottomNavigationBar: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const OfflineBanner(),
+                    AppNavigationBar(
+                      selectedPage: _currentPage,
+                      onDestinationSelected: _handlePageChange,
+                    ),
+                  ],
+                ),)
           ),
         ),
       ],

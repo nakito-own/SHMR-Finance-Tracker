@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:shmr_finance/core/auth_provider.dart';
 import 'package:shmr_finance/core/bloc/category/category_cubit.dart';
+import 'package:shmr_finance/core/dio_client.dart';
 import 'package:shmr_finance/core/theme/app_theme.dart';
 import 'package:shmr_finance/data/local/app_database.dart';
 import 'package:shmr_finance/data/local/local_transaction_response_repository.dart';
@@ -50,8 +50,8 @@ class _MyAppState extends State<MyApp> {
     ApiTransactionRepository? remoteRepo;
 
     if (ApiConfig.baseUrl.isNotEmpty) {
-      final dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl));
-      remoteRepo = ApiTransactionRepository(dio, authProvider);
+      final dioClient = DioClient(authProvider);
+      remoteRepo = ApiTransactionRepository(dioClient.dio, authProvider);
     }
 
     final db = AppDatabase();
