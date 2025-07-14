@@ -59,3 +59,14 @@ flutter_gen:
     template-arb-file: app_en.arb
     output-localization-file: app_localizations.dart
     output-class: AppLocalizations
+flutter_launcher_icons:
+  image_path: assets/branding/app_icon.png
+  android: true
+  ios: true
+
+flutter_native_splash:
+  color: "#4CAF50"
+  image: assets/branding/splash.png
+  android: true
+  ios: true
+  web: false
