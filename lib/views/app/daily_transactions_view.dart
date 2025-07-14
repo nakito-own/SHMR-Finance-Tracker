@@ -5,6 +5,7 @@ import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
 import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
+import 'package:shmr_finance/views/app/network_status_widget.dart';
 
 class DailyTransactionsView extends StatefulWidget {
   final bool isIncome;
@@ -56,14 +57,6 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
         } else if (state is TransactionError) {
           return Center(child: Text(state.message));
         } else if (state is TransactionLoaded) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            final text = state.fromCache
-                ? AppLocalizations.of(context)!.offlineMode
-                : AppLocalizations.of(context)!.onlineMode;
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text(text)));
-          });
           final filtered = state.transactions
               .where((tx) => tx.category.isIncome == widget.isIncome)
               .toList();
@@ -73,78 +66,96 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                 (sum, tx) => sum + (double.tryParse(tx.amount) ?? 0),
           );
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Stack(
             children: [
-              Container(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Text(AppLocalizations.of(context)!.all, style: Theme.of(context).textTheme.titleMedium),
-                    const Spacer(),
-                    Text('${total.toStringAsFixed(0)} ₽', style: Theme.of(context).textTheme.titleMedium),
-                  ],
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.all,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const Spacer(),
+                        Text(
+                          '${total.toStringAsFixed(0)} ₽',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (filtered.isEmpty)
+                    Expanded(
+                      child: Center(
+                        child: Text(AppLocalizations.of(context)!.npOperationsForPeriod),
+                      ),
+                    )
+                  else
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: filtered.length,
+                        itemBuilder: (context, index) {
+                          final tx = filtered[index];
+                          final category = tx.category;
+                          return Column(
+                            children: [
+                              ListTile(
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (_) => TransactionFormScreen(
+                                      transaction: tx,
+                                      isIncome: widget.isIncome,
+                                    ),
+                                  );
+                                },
+                                leading: CircleAvatar(
+                                  backgroundColor: ColorScheme.of(context).secondary,
+                                  child: Text(category.emoji),
+                                ),
+                                title: Text(category.name),
+                                subtitle: Text(tx.comment ?? ''),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      '${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽',
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                                      onPressed: () async {
+                                        await showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          builder: (_) => TransactionFormScreen(
+                                            transaction: tx,
+                                            isIncome: widget.isIncome,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(height: 0, color: Colors.grey[200]),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                ],
               ),
-              if (filtered.isEmpty)
-                Expanded(
-                  child: Center(
-                    child: Text(AppLocalizations.of(context)!.npOperationsForPeriod),
-                  ),
-                )
-              else
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: filtered.length,
-                    itemBuilder: (context, index) {
-                      final tx = filtered[index];
-                      final category = tx.category;
-                      return Column(
-                        children: [
-                          ListTile(
-                            onTap: () async {
-                              await showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (_) => TransactionFormScreen(
-                                  transaction: tx,
-                                  isIncome: widget.isIncome,
-                                ),
-                              );
-                            },
-                            leading: CircleAvatar(
-                              backgroundColor: ColorScheme.of(context).secondary,
-                              child: Text(category.emoji),
-                            ),
-                            title: Text(category.name),
-                            subtitle: Text(tx.comment ?? ''),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽', style: TextTheme.of(context).titleMedium),
-                                IconButton(
-                                  icon: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                                  onPressed: () async {
-                                    await showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (_) => TransactionFormScreen(
-                                        transaction: tx,
-                                        isIncome: widget.isIncome,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Divider(height: 0, color: Colors.grey[200]),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+              Positioned(
+                right: 16,
+                bottom: 16,
+                child: NetworkStatusWidget(online: !state.fromCache),
+              ),
             ],
           );
         } else {

@@ -2,10 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
 import 'package:shmr_finance/core/network_utils.dart';
-import 'package:shmr_finance/domain/repositories/transaction_response_repository.dart';
+import 'package:shmr_finance/data/repositories/api/cached_transaction_repository.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
-  final TransactionResponseRepository repository;
+  final CachedTransactionRepository repository;
 
   TransactionBloc({required this.repository}) : super(TransactionInitial()) {
     on<LoadTransactionsByPeriod>(_onLoadTransactionsByPeriod);
@@ -18,14 +18,23 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     emit(TransactionLoading());
 
     try {
-      final online = await hasNetwork();
-      final txs = await repository.getByPeriod(
+      final localTxs = await repository.local.getByPeriod(
         accountId: event.accountId,
         start: event.start,
         end: event.end,
       );
+      emit(TransactionLoaded(localTxs, fromCache: true));
 
-      emit(TransactionLoaded(txs, fromCache: !online));
+      final online = await hasNetwork();
+      if (online && repository.remote != null) {
+        final remoteTxs = await repository.remote!.getByPeriod(
+          accountId: event.accountId,
+          start: event.start,
+          end: event.end,
+        );
+        await repository.local.saveAll(remoteTxs);
+        emit(TransactionLoaded(remoteTxs, fromCache: false));
+      }
     } catch (_) {
       emit(TransactionError("Не удалось загрузить транзакции в BLoC вот конкретно тут"));
     }

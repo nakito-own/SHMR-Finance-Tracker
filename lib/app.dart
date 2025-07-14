@@ -47,12 +47,18 @@ class _MyAppState extends State<MyApp> {
     final locale = context.watch<LocaleProvider>();
 
     final authProvider = AuthProvider();
-    final dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl));
+    ApiTransactionRepository? remoteRepo;
 
-    final remoteRepo = ApiTransactionRepository(dio, authProvider);
+    if (ApiConfig.baseUrl.isNotEmpty) {
+      final dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl));
+      remoteRepo = ApiTransactionRepository(dio, authProvider);
+    }
+
     final db = AppDatabase();
     final localRepo = LocalTransactionResponseRepository(db);
-    final transactionRepository = CachedTransactionRepository(remote: remoteRepo, local: localRepo);
+
+    final transactionRepository = CachedTransactionRepository(local: localRepo, remote: remoteRepo);
+
     final bankAccountRepository = MockBankAccountRepository();
     final categoryRepository = MockCategoryRepository();
 

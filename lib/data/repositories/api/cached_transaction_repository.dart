@@ -5,10 +5,10 @@ import 'package:shmr_finance/domain/models/transaction_response/transaction_resp
 import 'package:shmr_finance/domain/repositories/transaction_response_repository.dart';
 
 class CachedTransactionRepository implements TransactionResponseRepository {
-  final ApiTransactionRepository remote;
+  final ApiTransactionRepository? remote;
   final LocalTransactionResponseRepository local;
 
-  CachedTransactionRepository({required this.remote, required this.local});
+  CachedTransactionRepository({required this.local, this.remote});
 
   @override
   Future<List<TransactionResponse>> getByPeriod({
@@ -17,16 +17,15 @@ class CachedTransactionRepository implements TransactionResponseRepository {
     required DateTime end,
   }) async {
     final online = await hasNetwork();
-    if (online) {
+    if (online && remote != null) {
       try {
-        final list = await remote.getByPeriod(accountId: accountId, start: start, end: end);
+        final list = await remote!.getByPeriod(accountId: accountId, start: start, end: end);
         await local.saveAll(list);
         return list;
       } catch (_) {
         return await local.getByPeriod(accountId: accountId, start: start, end: end);
       }
-    } else {
-      return await local.getByPeriod(accountId: accountId, start: start, end: end);
     }
+    return await local.getByPeriod(accountId: accountId, start: start, end: end);
   }
 }

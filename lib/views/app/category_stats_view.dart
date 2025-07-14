@@ -9,6 +9,7 @@ import 'package:shmr_finance/domain/models/transaction_response/transaction_resp
 import 'package:shmr_finance/l10n/app_localizations.dart';
 import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
 import 'package:category_chart/category_chart.dart';
+import 'package:shmr_finance/views/app/network_status_widget.dart';
 
 class CategoryStatsView extends StatefulWidget {
   final bool isIncome;
@@ -61,14 +62,6 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
         } else if (state is TransactionError) {
           return Center(child: Text(state.message));
         } else if (state is TransactionLoaded) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            final text = state.fromCache
-                ? AppLocalizations.of(context)!.offlineMode
-                : AppLocalizations.of(context)!.onlineMode;
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text(text)));
-          });
           final filtered = state.transactions
               .where((tx) => tx.category.isIncome == widget.isIncome)
               .toList();
@@ -116,78 +109,87 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
             );
           }
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Stack(
             children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Text(AppLocalizations.of(context)!.sum,
-                        style: Theme.of(context).textTheme.titleMedium),
-                    const Spacer(),
-                    Text('${totalSum.toStringAsFixed(0)} ₽',
-                        style: Theme.of(context).textTheme.titleMedium),
-                  ],
-                ),
-              ),
-              const Divider(height: 0, color: Colors.grey),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(28),
-                  child: CategoryPieChart(data: chartData),
-                ),
-              ),
-              const Divider(height: 0, color: Colors.grey),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: groups.length,
-                  itemBuilder: (context, index) {
-                    final group = groups[index];
-                    final lastTx = group.transactions.first;
-                    final percent =
-                    totalSum == 0 ? 0 : (group.total / totalSum * 100);
-                    return Column(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
                       children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: ColorScheme.of(context).secondary,
-                            child: Text(group.category.emoji),
-                          ),
-                          title: Text(group.category.name),
-                          subtitle: Text(lastTx.comment ?? ''),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                        Text(AppLocalizations.of(context)!.sum,
+                            style: Theme.of(context).textTheme.titleMedium),
+                        const Spacer(),
+                        Text('${totalSum.toStringAsFixed(0)} ₽',
+                            style: Theme.of(context).textTheme.titleMedium),
+                      ],
+                    ),
+                  ),
+                  const Divider(height: 0, color: Colors.grey),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(28),
+                      child: CategoryPieChart(data: chartData),
+                    ),
+                  ),
+                  const Divider(height: 0, color: Colors.grey),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: groups.length,
+                      itemBuilder: (context, index) {
+                        final group = groups[index];
+                        final lastTx = group.transactions.first;
+                        final percent =
+                        totalSum == 0 ? 0 : (group.total / totalSum * 100);
+                        return Column(
+                          children: [
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: ColorScheme.of(context).secondary,
+                                child: Text(group.category.emoji),
+                              ),
+                              title: Text(group.category.name),
+                              subtitle: Text(lastTx.comment ?? ''),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text('${group.total.toStringAsFixed(0)} ₽', style: Theme.of(context).textTheme.bodyLarge),
-                                  Text('${percent.toStringAsFixed(1)}%', style: Theme.of(context).textTheme.bodySmall),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text('${group.total.toStringAsFixed(0)} ₽', style: Theme.of(context).textTheme.bodyLarge),
+                                      Text('${percent.toStringAsFixed(1)}%', style: Theme.of(context).textTheme.bodySmall),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.arrow_forward_ios,
+                                        size: 16, color: Colors.grey),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => _CategoryTransactionsScreen(
+                                            category: group.category,
+                                            transactions: group.transactions,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.arrow_forward_ios,
-                                    size: 16, color: Colors.grey),
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => _CategoryTransactionsScreen(
-                                        category: group.category,
-                                        transactions: group.transactions,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(height: 0, color: Colors.grey[200]),
-                      ],
-                    );
-                  },
-                ),
+                            ),
+                            Divider(height: 0, color: Colors.grey[200]),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                right: 16,
+                bottom: 16,
+                child: NetworkStatusWidget(online: !state.fromCache),
               ),
             ],
           );
@@ -216,46 +218,34 @@ class _CategoryTransactionsScreen extends StatelessWidget {
   final List<TransactionResponse> transactions;
 
   const _CategoryTransactionsScreen({
+    Key? key,
     required this.category,
     required this.transactions,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(category.name),
-          centerTitle: true,
-          backgroundColor: ColorScheme.of(context).primary,
-        ),
-        body: ListView.builder(
-          itemCount: transactions.length,
-          itemBuilder: (context, index) {
-            final tx = transactions[index];
-            return Column(
-              children: [
-                ListTile(
-                  onTap: () async {
-                    await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (_) => TransactionFormScreen(
-                        transaction: tx,
-                        isIncome: tx.category.isIncome,
-                      ),
-                    );
-                  },
-                  title: Text(tx.comment ?? ''),
-                  subtitle: Text(DateFormat.yMd().add_Hm().format(tx.transactionDate)),
-                  trailing: Text('${double.tryParse(tx.amount)?.toStringAsFixed(0) ?? tx.amount} ₽'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(category.name),
+      ),
+      body: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (context, index) {
+          final tx = transactions[index];
+          return ListTile(
+            title: Text('${tx.amount} ₽'),
+            subtitle: Text(DateFormat.yMMMd().add_Hm().format(tx.transactionDate)),
+            trailing: Text(tx.comment ?? ''),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => TransactionFormScreen(transaction: tx, isIncome: category.isIncome),
                 ),
-                Divider(height: 0, color: Colors.grey[200]),
-              ],
-            );
-          },
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }
