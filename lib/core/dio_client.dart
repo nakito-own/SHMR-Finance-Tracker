@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:shmr_finance/core/deserialize_interceptor.dart';
 
 import '../config/api_config.dart';
 import 'auth_provider.dart';
@@ -12,13 +13,15 @@ class DioClient {
   DioClient._(this._authProvider, {int maxRetries = 3})
       : dio = Dio(BaseOptions(baseUrl: ApiConfig.baseUrl)),
         _maxRetries = maxRetries {
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          final token = await _authProvider.getToken();
-          options.headers['Authorization'] = 'Bearer $token';
-          return handler.next(options);
-        },
+    dio.interceptors
+      ..add(DeserializeInterceptor())
+      ..add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) async {
+            final token = await _authProvider.getToken();
+            options.headers['Authorization'] = 'Bearer $token';
+            return handler.next(options);
+          },
         onError: (error, handler) async {
           final status = error.response?.statusCode;
           final attempt = (error.requestOptions.extra['retry'] ?? 0) + 1;
@@ -30,7 +33,7 @@ class DioClient {
               final response = await dio.fetch(options);
               return handler.resolve(response);
             } catch (e) {
-              return handler.reject(e as DioError);
+              return handler.reject(e as DioException);
             }
           }
           return handler.next(error);

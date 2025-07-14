@@ -36,16 +36,22 @@ class ApiTransactionRepository
           headers: {
             'Authorization': 'Bearer $token',
           },
+          extra: {
+            'deserialize': (dynamic data) {
+              if (data is List) {
+                return data
+                    .map((e) => TransactionResponse.fromJson(
+                    Map<String, dynamic>.from(e)))
+                    .toList();
+              }
+              throw Exception(
+                  'Неверный формат данных ожидался List а пришла херь какая-то');
+            }
+          },
         ),
       );
 
-      final rawData = response.data;
-
-      if (rawData is! List) {
-        throw Exception('Неверный формат данных: ожидался List, получен ${rawData.runtimeType}');
-      }
-
-      return rawData.map((json) => TransactionResponse.fromJson(json)).toList();
+      return response.data as List<TransactionResponse>;
     } catch (e, stack) {
       print('Ошибка в getByPeriod: $e');
       print(stack);
