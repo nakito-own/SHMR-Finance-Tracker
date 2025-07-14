@@ -5,7 +5,6 @@ import 'package:shmr_finance/core/bloc/transaction/transaction_event.dart';
 import 'package:shmr_finance/core/bloc/transaction/transaction_state.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
 import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
-import 'package:shmr_finance/views/app/network_status_widget.dart';
 
 class DailyTransactionsView extends StatefulWidget {
   final bool isIncome;
@@ -150,11 +149,6 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                       ),
                     ),
                 ],
-              ),
-              Positioned(
-                right: 16,
-                bottom: 16,
-                child: NetworkStatusWidget(online: !state.fromCache),
               ),
             ],
           );

@@ -9,7 +9,6 @@ import 'package:shmr_finance/domain/models/transaction_response/transaction_resp
 import 'package:shmr_finance/l10n/app_localizations.dart';
 import 'package:shmr_finance/views/screens/transaction_form_screen.dart';
 import 'package:category_chart/category_chart.dart';
-import 'package:shmr_finance/views/app/network_status_widget.dart';
 
 class CategoryStatsView extends StatefulWidget {
   final bool isIncome;
@@ -185,11 +184,6 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
                     ),
                   ),
                 ],
-              ),
-              Positioned(
-                right: 16,
-                bottom: 16,
-                child: NetworkStatusWidget(online: !state.fromCache),
               ),
             ],
           );
