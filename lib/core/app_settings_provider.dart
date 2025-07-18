@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../data/local/settings_service.dart';
 
 class AppSettingsProvider with ChangeNotifier {
   final SettingsService settingsService;
+  final Completer<void> _initCompleter = Completer<void>();
 
   bool _hapticsEnabled = true;
   bool _soundEnabled = true;
@@ -18,12 +21,14 @@ class AppSettingsProvider with ChangeNotifier {
     _soundEnabled = await settingsService.getSoundEnabled() ?? true;
     _biometricUnlock = await settingsService.getBiometricUnlock() ?? false;
     _pinCode = await settingsService.getPinCode();
+    _initCompleter.complete();
     notifyListeners();
   }
 
   bool get hapticsEnabled => _hapticsEnabled;
   bool get soundEnabled => _soundEnabled;
   bool get biometricUnlock => _biometricUnlock;
+  Future<void> get initialized => _initCompleter.future;
   String? get pinCode => _pinCode;
 
   set biometricUnlock(bool value) {

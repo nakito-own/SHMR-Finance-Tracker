@@ -35,17 +35,24 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late final AppRouterDelegate _routerDelegate;
   late final AppRouteInformationParser _routeInformationParser;
   bool _blur = false;
+  bool _askedPin = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final settings = context.read<AppSettingsProvider>();
-    if (settings.pinCode != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _routerDelegate = AppRouterDelegate();
+    _routeInformationParser = AppRouteInformationParser();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final settings = context.read<AppSettingsProvider>();
+      await settings.initialized;
+      if (!mounted || _askedPin) return;
+      if (settings.pinCode != null) {
+        _askedPin = true;
         if (settings.biometricUnlock) {
           final auth = LocalAuthentication();
           final ok = await auth.authenticate(localizedReason: 'Unlock');
@@ -56,16 +63,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
             MaterialPageRoute(builder: (_) => const PinCodeScreen(isSetup: false)),
           );
         }
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _routerDelegate = AppRouterDelegate();
-    _routeInformationParser = AppRouteInformationParser();
+      }
+    });
   }
 
   @override
