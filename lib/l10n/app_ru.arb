@@ -45,5 +45,12 @@
   "months": "По месяцам",
   "useSystemTheme": "Использовать системную тему",
   "pickTintColor": "Выбрать основной цвет",
-  "cancel": "Отмена"
+  "cancel": "Отмена",
+  "haptics": "Вибрация",
+  "sound": "Звук",
+  "pinCode": "Код-пароль",
+  "unlockWithBiometrics": "Разблокировка по биометрии",
+  "setPin": "Установить PIN",
+  "enterPin": "Введите PIN",
+  "wrongPin": "Неверный код"
 }

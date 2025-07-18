@@ -45,5 +45,12 @@
   "months": "Months",
   "useSystemTheme": "Use system theme",
   "pickTintColor": "Pick accent color",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "haptics": "Haptics",
+  "sound": "Sound",
+  "pinCode": "PIN code",
+  "unlockWithBiometrics": "Unlock with biometrics",
+  "setPin": "Set PIN",
+  "enterPin": "Enter PIN",
+  "wrongPin": "Wrong code"
 }

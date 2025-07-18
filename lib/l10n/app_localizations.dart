@@ -370,6 +370,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// No description provided for @haptics.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptics'**
+  String get haptics;
+
+  /// No description provided for @sound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound'**
+  String get sound;
+
+  /// No description provided for @pinCode.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN code'**
+  String get pinCode;
+
+  /// No description provided for @unlockWithBiometrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with biometrics'**
+  String get unlockWithBiometrics;
+
+  /// No description provided for @setPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Set PIN'**
+  String get setPin;
+
+  /// No description provided for @enterPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter PIN'**
+  String get enterPin;
+
+  /// No description provided for @wrongPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong code'**
+  String get wrongPin;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

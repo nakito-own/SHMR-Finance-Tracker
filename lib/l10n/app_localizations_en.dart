@@ -147,4 +147,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get haptics => 'Haptics';
+
+  @override
+  String get sound => 'Sound';
+
+  @override
+  String get pinCode => 'PIN code';
+
+  @override
+  String get unlockWithBiometrics => 'Unlock with biometrics';
+
+  @override
+  String get setPin => 'Set PIN';
+
+  @override
+  String get enterPin => 'Enter PIN';
+
+  @override
+  String get wrongPin => 'Wrong code';
 }

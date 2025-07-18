@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shmr_finance/core/app_settings_provider.dart';
+import 'package:shmr_finance/views/screens/pin_code_screen.dart';
 
 import '../../core/locale_provider.dart';
 import '../../core/theme_provider.dart';
@@ -15,6 +17,7 @@ class SettingsScreen extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final localeProvider = Provider.of<LocaleProvider>(context);
     final isDark = themeProvider.themeMode == ThemeMode.dark;
+    final settingsProvider = Provider.of<AppSettingsProvider>(context);
 
     return SafeArea(
       top: false,
@@ -76,9 +79,43 @@ class SettingsScreen extends StatelessWidget {
               Divider(color: ColorScheme.of(context).secondary),
               ListTile(
                 title: Text(AppLocalizations.of(context)!.switchLanguage),
-                trailing: FilledButton(
-                  onPressed: localeProvider.toggleLocale,
-                  child: Text(localeProvider.locale.languageCode.toUpperCase()),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: localeProvider.toggleLocale,
+              ),
+              Divider(color: ColorScheme.of(context).secondary),
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.haptics),
+                trailing: Switch(
+                  value: settingsProvider.hapticsEnabled,
+                  onChanged: (v) => settingsProvider.hapticsEnabled = v,
+                ),
+              ),
+              Divider(color: ColorScheme.of(context).secondary),
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.sound),
+                trailing: Switch(
+                  value: settingsProvider.soundEnabled,
+                  onChanged: (v) => settingsProvider.soundEnabled = v,
+                ),
+              ),
+              Divider(color: ColorScheme.of(context).secondary),
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.pinCode),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const PinCodeScreen(isSetup: true),
+                    ),
+                  );
+                },
+              ),
+              Divider(color: ColorScheme.of(context).secondary),
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.unlockWithBiometrics),
+                trailing: Switch(
+                  value: settingsProvider.biometricUnlock,
+                  onChanged: (v) => settingsProvider.biometricUnlock = v,
                 ),
               ),
               Divider(color: ColorScheme.of(context).secondary),
