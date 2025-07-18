@@ -138,4 +138,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get months => 'Months';
+
+  @override
+  String get useSystemTheme => 'Use system theme';
+
+  @override
+  String get pickTintColor => 'Pick accent color';
+
+  @override
+  String get cancel => 'Cancel';
 }

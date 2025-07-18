@@ -138,4 +138,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get months => 'По месяцам';
+
+  @override
+  String get useSystemTheme => 'Использовать системную тему';
+
+  @override
+  String get pickTintColor => 'Выбрать основной цвет';
+
+  @override
+  String get cancel => 'Отмена';
 }

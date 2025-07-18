@@ -48,6 +48,7 @@ class ExpensesScreen extends StatelessWidget {
           endDate: todayEnd,
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorScheme.of(context).primary,
           onPressed: () async {
             await showModalBottomSheet(
               context: context,

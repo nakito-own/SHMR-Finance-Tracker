@@ -42,5 +42,8 @@
   "fillAllFields": "Please fill all fields",
   "myAccount": "My Account",
   "days": "Days",
-  "months": "Months"
+  "months": "Months",
+  "useSystemTheme": "Use system theme",
+  "pickTintColor": "Pick accent color",
+  "cancel": "Cancel"
 }

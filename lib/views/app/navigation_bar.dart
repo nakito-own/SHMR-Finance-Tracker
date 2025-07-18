@@ -30,7 +30,7 @@ class AppNavigationBar extends StatelessWidget {
     }
 
     return NavigationBar(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: ColorScheme.of(context).primary,
       selectedIndex: selectedIndex,
       onDestinationSelected: (index) {
         final page = items[index].$1;
