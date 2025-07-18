@@ -138,4 +138,34 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get months => 'По месяцам';
+
+  @override
+  String get useSystemTheme => 'Использовать системную тему';
+
+  @override
+  String get pickTintColor => 'Выбрать основной цвет';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get haptics => 'Вибрация';
+
+  @override
+  String get sound => 'Звук';
+
+  @override
+  String get pinCode => 'Код-пароль';
+
+  @override
+  String get unlockWithBiometrics => 'Разблокировка по биометрии';
+
+  @override
+  String get setPin => 'Установить PIN';
+
+  @override
+  String get enterPin => 'Введите PIN';
+
+  @override
+  String get wrongPin => 'Неверный код';
 }

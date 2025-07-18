@@ -141,7 +141,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           primary: true,
-          toolbarHeight: 100, //Я знаю в чем проблема, потом пофикшу вызов, но пока что так
+          toolbarHeight: 100,
           centerTitle: true,
           backgroundColor: Theme.of(context).colorScheme.primary,
           leading: IconButton(
@@ -171,7 +171,10 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
               ),
               onTap: _selectAccount,
             ),
-            const Divider(height: 0, color: Colors.grey),
+            Divider(
+              height: 0,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
             ListTile(
               tileColor: Theme.of(context).colorScheme.secondary,
               title: Text(AppLocalizations.of(context)!.category),
@@ -181,7 +184,10 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
               ),
               onTap: _selectCategory,
             ),
-            const Divider(height: 0, color: Colors.grey),
+            Divider(
+              height: 0,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
             ListTile(
               tileColor: Theme.of(context).colorScheme.secondary,
               title: Text(AppLocalizations.of(context)!.date),
@@ -191,9 +197,12 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
               ),
               onTap: _pickDate,
             ),
-            const Divider(height: 0, color: Colors.grey),
+            Divider(
+              height: 0,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
             Container(
-              color: ColorScheme.of(context).secondary,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: TextField(
@@ -218,9 +227,12 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
                 ),
               ),
             ),
-            const Divider(height: 0, color: Colors.grey),
+            Divider(
+              height: 0,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
             Container(
-              color: ColorScheme.of(context).secondary,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: TextField(
@@ -236,7 +248,10 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
                 ),
               ),
             ),
-            const Divider(height: 0, color: Colors.grey),
+            Divider(
+              height: 0,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
           ],
         ),
       ),

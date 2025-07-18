@@ -100,7 +100,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   InkWell(
                     onTap: _pickStartDate,
                     child: Container(
-                      color: ColorScheme.of(context).secondary,
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       width: double.infinity,
                       child: Row(
@@ -118,11 +118,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       ),
                     ),
                   ),
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   InkWell(
                     onTap: _pickEndDate,
                     child: Container(
-                      color: ColorScheme.of(context).secondary,
+                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
                       padding: const EdgeInsets.all(16),
                       width: double.infinity,
                       child: Row(
@@ -140,7 +143,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       ),
                     ),
                   ),
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                 ],
               ),
             ),

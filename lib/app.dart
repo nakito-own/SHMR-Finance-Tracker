@@ -23,6 +23,11 @@ import 'l10n/app_localizations.dart';
 import 'data/repositories/api/api_transaction_repository.dart';
 import 'data/repositories/mock/mock_bank_account_repository.dart';
 
+import 'core/app_settings_provider.dart';
+import 'package:local_auth/local_auth.dart';
+import 'views/screens/pin_code_screen.dart';
+import 'dart:ui';
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -30,15 +35,49 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late final AppRouterDelegate _routerDelegate;
   late final AppRouteInformationParser _routeInformationParser;
+  bool _blur = false;
+  bool _askedPin = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _routerDelegate = AppRouterDelegate();
     _routeInformationParser = AppRouteInformationParser();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final settings = context.read<AppSettingsProvider>();
+      await settings.initialized;
+      if (!mounted || _askedPin) return;
+      if (settings.pinCode != null) {
+        _askedPin = true;
+        if (settings.biometricUnlock) {
+          final auth = LocalAuthentication();
+          final ok = await auth.authenticate(localizedReason: 'Unlock');
+          if (ok) return;
+        }
+        if (mounted) {
+          await Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => const PinCodeScreen(isSetup: false)),
+          );
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    setState(() {
+      _blur = state != AppLifecycleState.resumed;
+    });
   }
 
   @override
@@ -69,18 +108,31 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => TransactionBloc(repository: transactionRepository),
         ),
-
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         themeMode: theme.themeMode,
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
+        theme: AppTheme.light(theme.seedColor),
+        darkTheme: AppTheme.dark(theme.seedColor),
         locale: locale.locale,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         routerDelegate: _routerDelegate,
         routeInformationParser: _routeInformationParser,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              child!,
+              if (_blur)
+                Positioned.fill(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: const ColoredBox(color: Colors.transparent),
+                  ),
+                ),
+            ],
+          );
+        },
       ),
     );
   }

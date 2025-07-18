@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shmr_finance/core/app_settings_provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../navigation/pages_enum.dart';
+import 'package:provider/provider.dart';
 
 class AppNavigationBar extends StatelessWidget {
   final AppPages selectedPage;
@@ -29,11 +32,16 @@ class AppNavigationBar extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final settings = context.read<AppSettingsProvider>();
+
     return NavigationBar(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: ColorScheme.of(context).primary,
       selectedIndex: selectedIndex,
       onDestinationSelected: (index) {
         final page = items[index].$1;
+        if (settings.hapticsEnabled) {
+          HapticFeedback.lightImpact();
+        }
         if (onDestinationSelected != null) {
           onDestinationSelected!(page);
         }

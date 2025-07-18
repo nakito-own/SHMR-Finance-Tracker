@@ -5,7 +5,7 @@ import 'pie_data.dart';
 
 class CategoryPieChart extends StatefulWidget {
   final List<PieData> data;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Duration animationDuration;
   final double size;
   final double ringThickness;
@@ -13,7 +13,7 @@ class CategoryPieChart extends StatefulWidget {
   const CategoryPieChart({
     Key? key,
     required this.data,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor,
     this.animationDuration = const Duration(milliseconds: 800),
     this.size = 180.0,
     this.ringThickness = 8.0,
@@ -72,7 +72,6 @@ class _CategoryPieChartState extends State<CategoryPieChart>
       height: widget.size,
       child: PieChart(
         PieChartData(
-          // Полная заливка (дырку не делаем)
           centerSpaceRadius: 0,
           sectionsSpace: 0,
           sections: data.map((item) {
@@ -80,7 +79,6 @@ class _CategoryPieChartState extends State<CategoryPieChart>
               color: item.color,
               value: item.value,
               title: '',
-              // явно указываем внешний радиус
               radius: outerRadius,
             );
           }).toList(),
@@ -154,7 +152,7 @@ class _CategoryPieChartState extends State<CategoryPieChart>
           width: innerDiameter,
           height: innerDiameter,
           decoration: BoxDecoration(
-            color: widget.backgroundColor,
+            color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
             shape: BoxShape.circle,
           ),
           child: Center(child: _buildCenterText(widget.data)),

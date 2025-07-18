@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shmr_finance/core/app_settings_provider.dart';
 import 'package:shmr_finance/views/app/daily_transactions_view.dart';
 import 'package:shmr_finance/views/screens/history_screen.dart';
 import 'package:shmr_finance/l10n/app_localizations.dart';
@@ -48,7 +50,12 @@ class IncomeScreen extends StatelessWidget {
           endDate: todayEnd,
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorScheme.of(context).primary,
           onPressed: () async {
+            final settings = context.read<AppSettingsProvider>();
+            if (settings.hapticsEnabled) {
+              HapticFeedback.lightImpact();
+            }
             await showModalBottomSheet(
               context: context,
               isScrollControlled: true,

@@ -217,9 +217,13 @@ class _AccountScreenState extends State<AccountScreen> {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
-              if (!_editMode) const Divider(height: 0, color: Colors.grey),
+              if (!_editMode)
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
               ListTile(
-                tileColor: Theme.of(context).colorScheme.secondary,
+                tileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                 title: Text(AppLocalizations.of(context)!.balance),
                 trailing: GestureDetector(
                   onTap: () => setState(() => _hidden = !_hidden),
@@ -273,15 +277,23 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                   ),
                 ),
-              if (!_editMode) const Divider(height: 0, color: Colors.grey),
+              if (!_editMode)
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
               if (!_editMode)
                 ListTile(
-                  tileColor: Theme.of(context).colorScheme.secondary,
+                  tileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   title: Text(AppLocalizations.of(context)!.currency),
                   trailing: Text(_symbol(acc.currency), style: const TextStyle(fontSize: 18)),
                   onTap: () => _editCurrency(acc),
                 ),
-              if (!_editMode) const Divider(height: 0, color: Colors.grey),
+              if (!_editMode)
+                Divider(
+                  height: 0,
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
               if (!_editMode)
                 SizedBox(
                   height: 300,
