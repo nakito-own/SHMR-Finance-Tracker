@@ -83,7 +83,7 @@ class _BalanceChartViewState extends State<BalanceChartView> {
                       final entry = data[group.x.toInt()];
                       return BarTooltipItem(
                         '${DateFormat.yMd().format(entry.date)}\n${entry.balance.toStringAsFixed(0)}',
-                        const TextStyle(color: Colors.black),
+                        TextStyle(color: Theme.of(context).colorScheme.onSurface),
                       );
                     },
                   ),
@@ -121,7 +121,9 @@ class _BalanceChartViewState extends State<BalanceChartView> {
                     BarChartGroupData(x: i, barRods: [
                       BarChartRodData(
                         toY: data[i].balance.abs(),
-                        color: data[i].balance < 0 ? Colors.red : Colors.green,
+                        color: data[i].balance < 0
+                            ? Theme.of(context).colorScheme.error
+                            : Theme.of(context).colorScheme.primary,
                         width: 8,
                         borderRadius: BorderRadius.circular(6),
                       )

@@ -36,7 +36,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
           child: Column(
             children: [
               Container(
-                color: ColorScheme.of(context).secondary,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
@@ -53,7 +53,10 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
                   ),
                 ),
               ),
-              const Divider(height: 0, color: Colors.grey),
+              Divider(
+                height: 0,
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
               Expanded(
                 child: BlocBuilder<CategoryCubit, List<Category>>(
                   builder: (context, categories) {
@@ -80,12 +83,15 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
 
                     return ListView.separated(
                       itemCount: filtered.length,
-                      separatorBuilder: (_, __) => const Divider(height: 0, color: Colors.grey),
+                      separatorBuilder: (_, __) => Divider(
+                        height: 0,
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                      ),
                       itemBuilder: (context, index) {
                         final c = filtered[index];
                         return ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: ColorScheme.of(context).secondary,
+                            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                             child: Text(
                               c.emoji,
                               style: const TextStyle(fontSize: 20),

@@ -11,7 +11,6 @@ abstract class AppTheme {
       elevation: 0,
       centerTitle: true,
       backgroundColor: Colors.transparent,
-      foregroundColor: Colors.black,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -37,9 +36,9 @@ abstract class AppTheme {
       scaffoldBackgroundColor: scheme.surface,
       canvasColor: scheme.surface,
       appBarTheme: base.appBarTheme.copyWith(
-        foregroundColor: Colors.black,
+        foregroundColor: scheme.onSurface,
         backgroundColor: scheme.surface,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: scheme.onSurface),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -69,9 +68,9 @@ abstract class AppTheme {
       scaffoldBackgroundColor: scheme.surface,
       canvasColor: scheme.surface,
       appBarTheme: base.appBarTheme.copyWith(
-        foregroundColor: Colors.white,
+        foregroundColor: scheme.onSurface,
         backgroundColor: scheme.surface,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: scheme.onSurface),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

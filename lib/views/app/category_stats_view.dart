@@ -125,14 +125,20 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
                       ],
                     ),
                   ),
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(28),
                       child: CategoryPieChart(data: chartData),
                     ),
                   ),
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: groups.length,
@@ -145,7 +151,7 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
                           children: [
                             ListTile(
                               leading: CircleAvatar(
-                                backgroundColor: ColorScheme.of(context).secondary,
+                                backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                                 child: Text(group.category.emoji),
                               ),
                               title: Text(group.category.name),
@@ -161,8 +167,11 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
                                     ],
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.arrow_forward_ios,
-                                        size: 16, color: Colors.grey),
+                                    icon: Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 16,
+                                      color: Theme.of(context).colorScheme.outline,
+                                    ),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -177,7 +186,10 @@ class _CategoryStatsViewState extends State<CategoryStatsView> {
                                 ],
                               ),
                             ),
-                            Divider(height: 0, color: Colors.grey[200]),
+                            Divider(
+                              height: 0,
+                              color: Theme.of(context).colorScheme.outlineVariant,
+                            ),
                           ],
                         );
                       },

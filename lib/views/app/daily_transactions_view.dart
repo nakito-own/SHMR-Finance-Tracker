@@ -127,7 +127,11 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                                       style: Theme.of(context).textTheme.titleMedium,
                                     ),
                                     IconButton(
-                                      icon: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                                      icon: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 16,
+                                        color: Theme.of(context).colorScheme.outline,
+                                      ),
                                       onPressed: () async {
                                         await showModalBottomSheet(
                                           context: context,
@@ -142,7 +146,10 @@ class _DailyTransactionsViewState extends State<DailyTransactionsView> {
                                   ],
                                 ),
                               ),
-                              Divider(height: 0, color: Colors.grey[200]),
+                              Divider(
+                                height: 0,
+                                color: Theme.of(context).colorScheme.outlineVariant,
+                              ),
                             ],
                           );
                         },

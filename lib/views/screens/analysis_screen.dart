@@ -79,7 +79,10 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
               color: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: Column(
                 children: [
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     child: Row(
@@ -106,7 +109,10 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       ],
                     ),
                   ),
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     child: Row(
@@ -133,7 +139,10 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       ],
                     ),
                   ),
-                  const Divider(height: 0, color: Colors.grey),
+                  Divider(
+                    height: 0,
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                 ],
               ),
             ),
